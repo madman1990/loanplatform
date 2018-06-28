@@ -1,0 +1,95 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="../static/commons/include::header">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>会员积分系统</title>
+<style type="text/css">
+.button1 {
+	color: #444;
+	background-repeat: no-repeat;
+	background: #f5f5f5;
+	background-repeat: repeat-x;
+	border: 1px solid #bbb;
+	background: -webkit-linear-gradient(top, #ffffff 0, #e6e6e6 100%);
+	background: -moz-linear-gradient(top, #ffffff 0, #e6e6e6 100%);
+	background: -o-linear-gradient(top, #ffffff 0, #e6e6e6 100%);
+	background: linear-gradient(to bottom, #ffffff 0, #e6e6e6 100%);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,
+		endColorstr=#e6e6e6, GradientType=0);
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+}
+</style>
+
+</head>
+<body id="indexd" bgcolor="#ff0000">
+	<br />
+	<table id="viewUser"></table>
+
+	<div id="UserSave" class="easyui-window" title="角色更新" draggable="false" closable="false" closed="true" cache="false"
+		collapsible="false" zIndex="20px" minimizable="false" maximizable="false" resizable="true"
+		style="width: 720px; height: 300px; top: 100px; padding: 0px; background: #fafafa; overflow: hidden;">
+		<div class="easyui-layout" fit="true">
+			<div region="center" border="true" style="padding: 10px; background: #fff; overflow: hidden;">
+				<input type="hidden" id="userId" name="userId" />
+				<table width="680">
+					<tr>
+						<td align="right">用户登录名：</td>
+						<td align="left"><input type="text" name="loginName" id="loginName" maxlength="100" onchange="$.checkUserName()" /></td>
+					</tr>
+					<tr id="psdTd">
+						<td align="right">密码：</td>
+						<td align="left"><input type="password" name="password" id="password" maxlength="20" /></td>
+					</tr>
+					<tr>
+						<td align="right">真实名：</td>
+						<td align="left"><input type="text" name="realName" id="realName" maxlength="100" /></td>
+					</tr>
+					<tr>
+						<td align="right">角色：</td>
+						<td align="left"><select id="roleId" name="roleId">
+								<option value="">-请选择-</option>
+								<div th:each="role: ${ROLES}">
+									<option th:text="${role.roleName }" th:value="${role.roleId }">${role.roleName }</option>
+								</div>
+						</select></td>
+
+					</tr>
+
+					<tr>
+						<td align="center" colspan="6"><a name="save" id="save" href="#" class="easyui-linkbutton"
+								data-options="iconCls:'icon-save'" onclick="$.save()">保存</a>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a name="close"
+								id="close" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="$.close()">关闭</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div id="UserView" class="easyui-window" title="密码修改" draggable="false" closable="false" closed="true" cache="false"
+		collapsible="false" zIndex="20px" minimizable="false" maximizable="false" resizable="true"
+		style="width: 720px; height: 300px; top: 100px; padding: 0px; background: #fafafa; overflow: hidden;">
+		<div class="easyui-layout" fit="true">
+			<div region="center" border="true" style="padding: 10px; background: #fff; overflow: hidden;">
+				<input type="hidden" id="userIdUpdate" name="userIdUpdate" />
+				<table width="680">
+					<tr>
+						<td align="right">密码：</td>
+						<td align="left"><input type="password" name="passwordUpdate" id="passwordUpdate" /></td>
+					</tr>
+					<tr>
+						<td align="center" colspan="6"><a name="savePas" id="savePas" href="#" class="easyui-linkbutton"
+								data-options="iconCls:'icon-save'" onclick="$.savePas()">保存</a>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a name="closePas"
+								id="closePas" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="$.UserViewClose()">关闭</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div th:include="../static/commons/include::footer"></div>
+	<script type="text/javascript" src="/commons/user.js"></script>
+</body>
+</html>

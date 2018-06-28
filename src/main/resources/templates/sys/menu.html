@@ -1,0 +1,80 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="../static/commons/include::header">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>会员积分系统</title>
+<style type="text/css">
+.button1 {
+	color: #444;
+	background-repeat: no-repeat;
+	background: #f5f5f5;
+	background-repeat: repeat-x;
+	border: 1px solid #bbb;
+	background: -webkit-linear-gradient(top, #ffffff 0, #e6e6e6 100%);
+	background: -moz-linear-gradient(top, #ffffff 0, #e6e6e6 100%);
+	background: -o-linear-gradient(top, #ffffff 0, #e6e6e6 100%);
+	background: linear-gradient(to bottom, #ffffff 0, #e6e6e6 100%);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,
+		endColorstr=#e6e6e6, GradientType=0);
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+}
+</style>
+
+</head>
+<body id="indexd" bgcolor="#ff0000">
+	<table width="100%">
+		<tr>
+			<td width="60">菜单名称：</td>
+			<td width="160" align="left"><input type="text" name="menuNameOper" id="menuNameOper" style="width: 150px;" /></td>
+
+			<td width="120"><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="$.viewmenu()">查询</a></td>
+			<td><a href="#" class="easyui-linkbutton" onclick="$.ClearMenu()">清空</a></td>
+		</tr>
+	</table>
+	<table id="viewmenu"></table>
+
+	<div id="menuSave" class="easyui-window" title="菜单更新" draggable="false" closable="false" closed="true" cache="false"
+		collapsible="false" zIndex="20px" minimizable="false" maximizable="false" resizable="true"
+		style="width: 720px; height: 300px; top: 100px; padding: 0px; background: #fafafa; overflow: hidden;">
+		<div class="easyui-layout" fit="true">
+			<div region="center" border="true" style="padding: 10px; background: #fff; overflow: hidden;">
+				<input type="hidden" id="menuCode" name="menuCode" />
+				<table width="680">
+					<tr style="height: 50px">
+						<td align="right">上级菜单名称：</td>
+						<td align="left"><select id="upMenuCode">
+								<option value=''>--请选择--</option>
+								<div th:each="m:${menu}">
+									<option th:text="${m.menuName}" th:value="${m.menuCode}">${m.menuName }</option>
+								</div>
+						</select></td>
+					</tr>
+					<tr style="height: 50px">
+						<td align="right">菜单名称：</td>
+						<td align="left"><input type="text" name="menuName" id="menuName" maxlength="100" /></td>
+					</tr>
+					<tr style="height: 50px">
+						<td align="right">菜单描述：</td>
+						<td align="left"><input type="text" name="menuDesc" id="menuDesc" maxlength="100" /></td>
+					</tr>
+					<tr style="height: 50px">
+						<td align="right">菜单地址：</td>
+						<td align="left"><input type="text" name="menuUrl" id="menuUrl" maxlength="100" /></td>
+					</tr>
+					<tr style="height: 50px">
+						<td align="center" colspan="6"><a name="save" id="save" href="#" class="easyui-linkbutton"
+								data-options="iconCls:'icon-save'" onclick="$.save()">保存</a>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a name="close"
+								id="close" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="$.close()">关闭</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div th:include="../static/commons/include::footer"></div>
+	<script type="text/javascript" src="/commons/menu.js"></script>
+
+</body>
+</html>

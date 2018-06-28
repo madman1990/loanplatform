@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        ctx = /*[[@{/}]]*/'';
+        var basepath = ctx;
+        /*]]>*/
+    </script>
+    <link href="${ctx}/commons/css/style.css" th:href="@{/commons/css/style.css}" rel="stylesheet"/>
+    <link href="${ctx}/commons/css/easyui.css" th:href="@{/commons/css/easyui.css}" rel="stylesheet"/>
+    <link href="${ctx}/commons/css/icon.css" th:href="@{/commons/css/icon.css}" rel="stylesheet"/>
+    <link href="${ctx}/commons/css/jquery.spinner.css" th:href="@{/commons/css/jquery.spinner.css}" rel="stylesheet"/>
+    <link href="${ctx}/commons/css/imgareaselect-animated.css" th:href="@{/commons/css/imgareaselect-animated.css}"
+          rel="stylesheet" type="text/css"/>
+</head>
+<div th:fragment="footer">
+    <script type="text/javascript" th:src="@{/commons/js/jquery-1.6.js}"></script>
+    <script type="text/javascript" th:src="@{/commons/js/jquery.json-2.2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/commons/js/ajaxfileupload.js}"></script>
+    <script type="text/javascript" th:src="@{/commons/js/commons.js}"></script>
+    <script type="text/javascript" th:src="@{/commons/js/jquery.easyui.min.js}"></script>
+    <script type="text/javascript" th:src="@{/commons/js/easyui-lang-zh_CN.js}"></script>
+    <script type="text/javascript" th:src="@{/commons/js/md5.js}"></script>
+    <script type="text/javascript" th:src="@{/commons/js/97date/WdatePicker.js}"></script>
+    <script type="text/javascript" th:src="@{/commons/js/numeral.js}"></script>
+    <script type="text/javascript" th:src="@{/commons/js/jquery.imgareaselect.min.js}"></script>
+    <script type="text/javascript" th:src="@{/commons/js/jquery.spinner.js}"></script>
+</div>
+</html>

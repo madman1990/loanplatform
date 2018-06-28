@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.mapper.monitor.ApplicationMonitorMapper">
+	
+	<sql id="appSql">
+		<if test="id != null and id != ''">
+			AND ID = #{id}
+		</if>
+		<if test="branchId != null and branchId != ''">
+			AND BRANCH_ID = #{branchId}
+		</if>
+		<if test="application != null and application != ''">
+			AND APPLICATION = #{application}
+		</if>
+		<if test="reqTime != null and reqTime != ''">
+			AND REQ_TIME = #{reqTime}
+		</if>
+		<if test="tradeLongTime != null tradeLongTime id != ''">
+			AND TRADE_LONG_TIME = #{tradeLongTime}
+		</if>
+		<if test="customerId != null and customerId != ''">
+			AND CUSTOMER_ID = #{customerId}
+		</if>
+		<if test="respCode != null and respCode != ''">
+			AND RESP_CODE = #{respCode}
+		</if>
+		<if test="respDesc != null and respDesc != ''">
+			AND RESP_DESC = #{respDesc}
+		</if>
+		<if test="logKey != null and logKey != ''">
+			AND LOG_KEY = #{logKey}
+		</if>
+		<if test="frmSys != null and frmSys != ''">
+			AND FRM_SYS = #{frmSys}
+		</if>
+	</sql>
+
+	<resultMap id="appMonitor" type="com.imobpay.base.model.monitor.ApplicationMonitor">
+		<result column="ID" property="id" />
+		<result column="BRANCH_ID" property="branchId" />
+		<result column="APPLICATION" property="application" />
+		<result column="REQ_TIME" property="reqTime" />
+		<result column="RESP_TIME" property="respTime" />
+		<result column="TRADE_LONG_TIME" property="tradeLongTime" />
+		<result column="CUSTOMER_ID" property="customerId" />
+		<result column="RESP_CODE" property="respCode" />
+		<result column="RESP_DESC" property="respDesc" />
+		<result column="LOG_KEY" property="logKey" />
+		<result column="FRM_SYS" property="frmSys" />
+	</resultMap>
+	
+	<select id="selectList" parameterType="com.imobpay.base.model.monitor.ApplicationMonitor" resultType="com.imobpay.base.model.monitor.ApplicationMonitor">
+		SELECT *
+		FROM (SELECT M.*,ROWNUM RN
+		FROM (
+				SELECT  ID as id,
+				BRANCH_ID as branchId,
+				APPLICATION as application,
+				REQ_TIME as reqTime,
+				RESP_TIME as respTime,
+				TRADE_LONG_TIME as tradeLongTime,
+				CUSTOMER_ID as customerId,
+				RESP_CODE as respCode,
+				RESP_DESC as respDesc,
+				LOG_KEY as logKey,
+				FRM_SYS as frmSys
+		FROM QTCREDIT2.TB_APPLICATION_MONITOR
+		WHERE 1 = 1
+		<if test="application != null and application != ''">
+			AND APPLICATION = #{application}
+		</if>
+		<if test="logKey != null and logKey != ''">
+			AND LOG_KEY = #{logKey}
+		</if>
+		<if test="reqTime != null and reqTime != ''">
+			AND SUBSTR(REQ_TIME, 0, 12) BETWEEN #{startTime} AND #{endTime}
+		</if>
+		ORDER BY REQ_TIME DESC
+		) M) N
+		where n.rn > ${start}
+		and  <![CDATA[ rn < = ${end} ]]>
+	</select>
+
+	<select id="selectMenuCount" parameterType="com.imobpay.base.model.monitor.ApplicationMonitor" resultType="java.lang.Integer" >
+		  SELECT COUNT(1) FROM QTCREDIT2.TB_APPLICATION_MONITOR
+		  WHERE 1=1
+		  <if test="application != null and application != ''">
+			  AND APPLICATION = #{application}
+		  </if>
+	</select>
+
+</mapper>

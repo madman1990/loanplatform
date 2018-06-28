@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="../static/commons/include::header">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>信贷平台</title>
+<style type="text/css">
+.button1 {
+	color: #444;
+	background-repeat: no-repeat;
+	background: #f5f5f5;
+	background-repeat: repeat-x;
+	border: 1px solid #bbb;
+	background: -webkit-linear-gradient(top, #ffffff 0, #e6e6e6 100%);
+	background: -moz-linear-gradient(top, #ffffff 0, #e6e6e6 100%);
+	background: -o-linear-gradient(top, #ffffff 0, #e6e6e6 100%);
+	background: linear-gradient(to bottom, #ffffff 0, #e6e6e6 100%);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,
+		endColorstr=#e6e6e6, GradientType=0);
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+}
+</style>
+
+</head>
+<body id="indexd" bgcolor="#ff0000">
+<table width="100%">
+	<tr>
+		<td width="90">请求时间范围：</td>
+		<td width="160" align="left"><input class="easyui-datetimebox" id="dt" name="birthday" style="width: 150px;" /></td>
+		<td width="20">到</td>
+		<td width="160" align="left"><input class="easyui-datetimebox" data-options="required:true,showSeconds:false"  id="dt1" name="birthday" style="width: 150px;" /></td>
+		<td width="60">接口名称：</td>
+		<td width="160" align="left"><input type="text" name="application" id="application" style="width: 150px;" /></td>
+		<td width="60">进程编号：</td>
+		<td width="160" align="left"><input type="text" name="logKey" id="logKey" style="width: 150px;" /></td>
+		<td width="120"><a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="$.loadList()">查询</a></td>
+		<td><a href="#" class="easyui-linkbutton" onclick="$.clear()">清空</a></td>
+	</tr>
+
+</table>
+<table id="viewMessage"></table>
+<div th:include="../static/commons/include::footer"></div>
+<script type="text/javascript" src="/commons/queryMessage.js"></script>
+</body>
+</html>

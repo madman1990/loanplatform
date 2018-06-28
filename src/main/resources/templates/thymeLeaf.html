@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Good Thymes Virtual Grocery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<!--th:with  定义局部变量-->
+<footer th:fragment="copy">
+    &copy; 2011 The Good Thymes Virtual Grocery
+</footer>
+<div th:insert="footer :: copy"></div>
+<!--<div th:replace="footer :: copy"></div>-->
+<!--<div th:include="footer :: copy"></div>-->
+
+
+<div th:insert="footer :: copy"></div>
+<!--断言assert 使用断言的时候都是true则执行，否则抛出异常-->
+<div th:assert="${text},(${execMode} != 'dev1')">...</div>
+<!--测试th:fragment的-->
+<div th:fragment="frag (onevar,twovar)">
+    <p th:text="${onevar} + ' ----- ' + ${twovar}">...</p>
+</div>
+<div th:replace="::frag ('value1','value2')">...</div>
+<div th:replace="::frag (onevar='value3',twovar='value4')"></div>
+
+<!--测试switch的-->
+<div th:switch="${text}">
+    <p th:case="'text'">这是text</p>
+    <p th:case="'haha'">这是haha</p>
+</div>
+<!--判断list集合是否为空-->
+<!--th:if="${not #lists.isEmpty(prod.comments)}">view</-->
+<p th:if="${not #lists.isEmpty(list)}">这个不是空</p>
+<p th:if="${#lists.isEmpty(list)}">这个是空的</p>
+<!--unless的if是相反的-->
+<p th:unless="${not #lists.isEmpty(list)}">这个测试unless的</p>
+
+<!-- 使用th:attrappend :attrprepend（前缀）属追加样式-->
+<input type="button" value="Do it!" class="btn" th:attrappend="class=${' ' + 'disable'}"/>
+<!-- 使用th:attr设置属性-->
+<img src="../commons/images/bg1.png" th:attr="src=@{/commons/images/b1g.png},title=${logo},alt=${logo}"/>
+
+<form action="subscribe.html" th:attr="action=@{/subscribe
+}">
+    <fieldset>
+        <input type="text" name="email"/>
+        <input type="submit" value="Subscribe!" th:attr="value=#{subscribe.submit}"/>
+    </fieldset>
+</form>
+<form action="subscribe.html">
+    <fieldset><input type="text" name="email"/><input type="submit" value="Subscribe!"/></fieldset>
+</form>
+
+<span th:text="${123123}?: _">no user authenticated</span>
+<!--判断loginName1是否存在 不存在则使用默认值-->
+<div th:object="${user}">
+    <p>Age: <span th:text="${loginName1}?: '(no age specified)'">27
+</span>.</p>
+</div>
+
+<tr th:class="${1==2}? 'even2' : 'odd'">
+    ...你好
+</tr>
+
+<div th:if="${count} &gt; 1">
+<span th:text="'Execution mode is ' + ( (${execMode} == 'dev1')? 'Development' : 'Production')">
+</span>
+</div>
+
+<div th:with="isEven=(${count} % 2 == 0)"></div>
+
+<p th:text="'你好'+${name}"></p>
+<p th:text="|我不好${name}|"></p>
+<span th:text="${name} + ' ' + |${name}, ${name}|"></span>
+<!--判断变量是否为空-->
+<div th:if="${text} != null">
+    判断对象会否为空
+</div>
+
+
+<p>The year is <span th:text="2013">1492</span>.</p>
+<p>In two years, it will be <span th:text="2013 + 2">1494</span>.</p>
+<p th:text="测试文本"></p>
+
+<p>Please select an option</p>
+<ol>
+    <li><a href="product/list.html" th:href="@{/product/list}">Product List</a></li>
+    <li><a href="order/list.html" th:href="@{/order/list}">Order List</a></li>
+    <li><a href="subscribe.html" th:href="@{/subscribe}">Suscribe to our Newsletter</a></li>
+    <li><a href="userprofile.html" th:href="@{/userprofile}">See User Profile</a></li>
+</ol>
+
+
+<a th:href="@{http://www.baidu.com(orderId=123)}">百度地址</a>
+<div></div>
+<!--多个参数以,隔开-->
+<a th:href="@{http://www.baidu.com(orderId=*{text},ord=${text})}">百度地址</a>
+<div></div>
+<a th:href="@{${url}(orderId=*{text},ord=${text})}">百度地址</a>
+<p th:text="${text}">默认值</p>
+<p th:text="${utext}">默认值</p>
+<p th:text="${currDate}">默认值</p>
+<p th:text="#{welcome(${text})}"></p>
+<p>Today is: <span th:text="${#calendars.format(today,'dd MMMM yyyy')}">13 May 2011</span>
+</p>
+<div th:object="${user}">
+    <!--*号表达式只能针对对象而言 这里的案例就是说在使用*的标签只能放咋$标签里面
+    因为loginName属于user的一部分
+    *是针对独享
+    -->
+    <p>name:<span th:text="*{loginName}"></span></p>
+    <p>password:<span th:text="*{password}"></span></p>
+</div>
+第二种写法
+<div>
+    <p>name:<span th:text="${user.loginName}"></span></p>
+    <p>password:<span th:text="${user.password}"></span></p>
+</div>
+第三种写法
+<div th:object="${user}">
+    <!--这里的#object就相当于user-->
+    <p>name:<span th:text="*{#object.loginName}"></span></p>
+    <p>password:<span th:text="*{password}"></span></p>
+</div>
+</body>
+</html>
